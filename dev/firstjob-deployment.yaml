@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: firstjobcompany
+  labels:
+    app: firstjobcompany
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: firstjobcompany
+      labels:
+        app: firstjobcompany
+    spec:
+      containers:
+        - name: firstjobcompany
+          image: paanja2020/jobcompanyappimage:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+        - name: c00
+          image: ubuntu
+          command: ["/bin/bash", "-c", "while true; do echo Hello-Shashikumar; sleep 5 ; done"]
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: k8s
+      restartPolicy: Always 
+  selector:
+    matchLabels:
+      app: firstjobcompany 
